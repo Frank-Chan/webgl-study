@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绘制一个点</title>
+</head>
+
+<body onload="main()">
+    <canvas id='myCanvas' width="1024" height='700'></canvas>
+</body>
+<script>
+	//顶点着色器程序（GLSL ES语言）
+	let VSHADER_SOURCE = 
+	  `void main() {\n`+
+	  `  gl_Position = vec4(0.0,0.0,0.0,1.0);\n`+  //设置坐标
+	  `  gl_PointSize = 10.0;\n`+  //设置尺寸
+	  `}\n`;
+
+	//片元着色器程序（GLSL ES语言）
+	let FSHADER_SOURCE = 
+	  `void main() {\n`+
+	  `  gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);\n`+  //设置颜色
+	  `}\n`;
+
+	//主程序（JS语言）
+	function main(){		
+		let canvas =  document.getElementById("myCanvas");//获取canvas元素
+		// let gl = getWebGLContext(canvas);	//获取WebGL绘图环境
+		let gl = canvas.getContext("webgl");	//获取WebGL绘图环境
+		if (!gl) {
+			console.log(`获取WebGL环境失败`);
+			return;
+		}
+		if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {//初始化着色器
+			console.log(`Shader初始化失败`);
+			return;
+		}
+
+		//指定清空<canvas>的颜色(设置背景色)
+		gl.clearColor(1.0,0.0,0.0,0.2);//RGBA,淡红色背景
+		// gl.clearColor(0,0.0,0.0,1.0);//RGBA,黑色背景
+		//清空<canvas>
+		gl.clear(gl.COLOR_BUFFER_BIT);
+
+		//绘制一个点
+		gl.drawArrays(gl.POINTS, 0, 1);
+	}
+
+</script>
+</html>

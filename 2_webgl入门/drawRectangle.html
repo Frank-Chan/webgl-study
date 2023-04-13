@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrawRectangle</title>
+</head>
+
+<body>
+    <canvas id='myCanvas' width="1024" height='700'></canvas>
+</body>
+<script>
+	let canvas =  document.getElementById("myCanvas");//获取canvas元素
+	let ctx  = canvas.getContext("2d");	//获取绘图环境，二维
+	ctx.fillStyle = "rgba(0,255,0,1.0)";	//设置填充颜色为绿色
+	ctx.fillRect(110,110,200,200);//前两个参数表示矩形左上角在canvas中的坐标，后两个参数指定了矩形的宽和高（单位为像素）
+</script>
+</html>
